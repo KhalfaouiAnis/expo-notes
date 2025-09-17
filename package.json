@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-menu/menu": "^2.0.0",
     "@react-navigation/native": "^7.0.3",
     "expo": "~53.0.6",
     "expo-constants": "~17.1.4",
@@ -27,15 +28,18 @@
     "expo-status-bar": "~2.2.3",
     "expo-system-ui": "~5.0.6",
     "expo-web-browser": "~14.2.0",
+    "nanoid": "^5.1.5",
     "nativewind": "4.2.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-mmkv": "^3.3.1",
     "react-native-reanimated": "3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-web": "^0.20.0",
+    "sonner-native": "^0.21.1",
     "zustand": "^4.5.1"
   },
   "devDependencies": {

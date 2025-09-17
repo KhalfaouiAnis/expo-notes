@@ -1,12 +1,19 @@
 import { Ionicons } from "@expo/vector-icons"
 import { SquircleView } from "expo-squircle-view"
-import { Text, View, StyleSheet } from "react-native"
+import { Text, View, StyleSheet, Platform } from "react-native"
 import { DEFAULT_ICON_SIZE } from "~/core/constants"
+import { MenuView } from "@react-native-menu/menu"
+import { COLORS } from "~/core/theme/colors"
+import { router } from "expo-router"
+import useNotesStore from "~/store/store"
+
 type NoteProps = {
     item: Note
 }
 
 const Note = ({ item }: NoteProps) => {
+    const { deleteNote } = useNotesStore();
+
     return (
         <SquircleView
             cornerSmoothing={100}
@@ -17,11 +24,45 @@ const Note = ({ item }: NoteProps) => {
                 <Text className="text-2xl">
                     {item.title}
                 </Text>
-                <Ionicons name="ellipsis-vertical" size={DEFAULT_ICON_SIZE} color="black" />
+                <MenuView
+                    onPressAction={({ nativeEvent }) => {
+                        if (nativeEvent.event === "edit") {
+                            router.push({
+                                pathname: "/details",
+                                params: { noteId: item.id }
+                            })
+                        } else if (nativeEvent.event === "destructive") {
+                            deleteNote(item.id)
+                        }
+
+                    }}
+                    actions={[
+                        {
+                            id: "edit",
+                            title: "Edit",
+                            titleColor: COLORS.primary,
+                            image: Platform.select({ ios: 'plus' }),
+                            imageColor: COLORS.primary
+                        },
+                        {
+                            id: "destructive",
+                            title: "Delete",
+                            attributes: {
+                                destructive: true,
+                            },
+                            image: Platform.select({
+                                ios: 'trash'
+                            })
+                        }
+                    ]}
+                >
+                    <Ionicons name="ellipsis-vertical" size={DEFAULT_ICON_SIZE} color="black" />
+                </MenuView>
             </View>
         </SquircleView>
     )
 }
+
 export default Note
 
 const styles = StyleSheet.create({
